@@ -88,7 +88,7 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
     private void showMessageDialog(String categoria) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Não há nenhum ponto de "+categoria+" na sua cidade.");
+        alertDialog.setMessage("Nao ha nenhum ponto de "+categoria+" na sua cidade.");
         alertDialog.setPositiveButton("OK", null);
         alertDialog.show();
 
