@@ -67,12 +67,12 @@ public class SelectCategoryActivity extends ActionBarActivity {
                             RecycleStoreLocalDataBase recycleDataBase = new RecycleStoreLocalDataBase(SelectCategoryActivity.this);
                             recycleDataBase.setRecycleStoreList(recycleList);
 
-
+                            finish();
                             Intent intent = new Intent(SelectCategoryActivity.this, MainActivity.class);
                             intent.putExtra("selectCategory",selectCategory);
                             startActivity(intent);
                         }else{
-                            showMessageDialog(recycleList);
+                            showMessageDialog(selectCategory);
                         }
 
 
@@ -86,12 +86,11 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
     }
 
-    private void showMessageDialog(ArrayList<RecycleStore> recyleList) {
+    private void showMessageDialog(String categoria) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("tamanho: "+recyleList.size());
+        alertDialog.setMessage("Não há nenhum ponto de "+categoria+" na sua cidade.");
         alertDialog.setPositiveButton("OK", null);
         alertDialog.show();
-
 
     }
 

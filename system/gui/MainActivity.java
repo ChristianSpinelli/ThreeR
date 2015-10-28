@@ -3,19 +3,22 @@ package krys.threer.system.gui;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.Icon;
 import android.location.Location;
 import android.location.LocationManager;
-import android.media.Image;
+
 import android.net.Uri;
+
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 
-import com.google.android.gms.ads.formats.NativeAd;
+
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -25,6 +28,8 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import krys.threer.R;
@@ -48,6 +53,7 @@ public class MainActivity extends ActionBarActivity {
         btnChangeCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(v.getContext(),SelectCategoryActivity.class);
                 startActivity(intent);
             }
@@ -74,13 +80,12 @@ public class MainActivity extends ActionBarActivity {
         recycleList = recycleDataBase.getRecycleStoreList();
         Intent intent = getIntent();
         String selectCategory = intent.getExtras().getString("selectCategory");
-
+        BitmapDescriptor icon = parseCategoryToIcon(selectCategory);
 
        for (int i = 0; i <recycleList.size() ; i++) {
            double latitude = recycleList.get(i).getAddres().getLatitude();
            double longitude = recycleList.get(i).getAddres().getLongitude();
            String name = recycleList.get(i).getName();
-           BitmapDescriptor icon = BitmapDescriptorFactory.fromPath("android.resource://krys.threer/drawable/pilha");
 
            map.addMarker(new MarkerOptions().position(new LatLng(latitude, longitude))
                    .title(name)
@@ -88,6 +93,21 @@ public class MainActivity extends ActionBarActivity {
        }
 
 
+    }
+
+    private BitmapDescriptor parseCategoryToIcon(String selectCategory) {
+        selectCategory = selectCategory.replaceAll(" ","_").toLowerCase();
+        Uri uri = Uri.parse("android.resource://krys.threer/mipmap/"+selectCategory);
+        Bitmap image = null;
+        try {
+            InputStream is = getContentResolver().openInputStream(uri);
+            image = BitmapFactory.decodeStream(is);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(image);
+
+        return icon;
     }
 
     private boolean MapCheckInstance() {
