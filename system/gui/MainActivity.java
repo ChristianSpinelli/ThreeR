@@ -35,6 +35,8 @@ import java.util.ArrayList;
 import krys.threer.R;
 import krys.threer.RecycleStore.dao.RecycleStoreLocalDataBase;
 import krys.threer.RecycleStore.domino.RecycleStore;
+import krys.threer.user.dao.UserSession;
+import krys.threer.user.dominio.User;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -128,14 +130,12 @@ public class MainActivity extends ActionBarActivity {
         // habilita o mapa pegar a localizacao do usuario.
         map.setMyLocationEnabled(true);
 
-        // cria o gerenciado de localizacoes para ver as localizacoes do sistema
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        // usa o gerenciador para pegar a ultima localizacao do aparelho
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        //pega usuario logado
+        UserSession session = new UserSession(this);
+        User user = session.getLoggedUser();
 
         // cria um objeto de localizacao com a latitude e longitude encontrada para ser nserido no mapa
-        loc = new LatLng(location.getLatitude(), location.getLongitude());
+        loc = new LatLng(user.getRecentlyAddres().getLatitude(), user.getRecentlyAddres().getLongitude());
 
         // escolhe o tipo do mapa
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -144,12 +144,14 @@ public class MainActivity extends ActionBarActivity {
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(loc, 16);
         map.animateCamera(camera);
 
+        showMessageDialog(user);
+
 
     }
 
-    private void showMessageDialog(ArrayList<RecycleStore> recyleList) {
+    private void showMessageDialog(User user) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("latitude: " + recyleList.get(0).getAddres().getLatitude());
+        alertDialog.setMessage("latitude: " +user.getRecentlyAddres().getLatitude()+" longitude: "+user.getRecentlyAddres().getLongitude());
         alertDialog.setPositiveButton("OK", null);
         alertDialog.show();
 

@@ -31,6 +31,17 @@ public class Addres {
 
     }
 
+    public Addres(String burgh,String city, String state, String country,double latitude, double longitude){
+
+        this.burgh = burgh;
+        this.city = city;
+        this.state = state;
+        this.country = country;
+        this.latitude = latitude;
+        this.longitude = longitude;
+
+    }
+
     public double getLatitude() {
         return latitude;
     }

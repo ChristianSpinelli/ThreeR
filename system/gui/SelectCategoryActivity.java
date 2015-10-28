@@ -2,8 +2,13 @@ package krys.threer.system.gui;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.provider.Telephony;
+
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,13 +16,16 @@ import android.widget.ListView;
 import android.widget.AdapterView;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import krys.threer.R;
 import krys.threer.RecycleStore.dao.RecycleDao;
 import krys.threer.RecycleStore.dao.RecycleStoreLocalDataBase;
 import krys.threer.RecycleStore.domino.RecycleStore;
 import krys.threer.RecycleStore.negocio.GetRecylceCallback;
+
 import krys.threer.system.dominio.Addres;
 import krys.threer.system.negocio.ArrayAdapterCategories;
 import krys.threer.user.dao.UserSession;
@@ -56,11 +64,39 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
                 UserSession session = new UserSession(view.getContext());
 
+
+
+                // cria o gerenciado de localizacoes para ver as localizacoes do sistema
+                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+                // usa o gerenciador para pegar a ultima localizacao do aparelho
+                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+                double latitude = location.getLatitude();
+                double longitude = location.getLongitude();
+
+                Geocoder geocoder = new Geocoder(view.getContext());
+                List<Address> addresses = new ArrayList<Address>();
+
+                try {
+                    addresses = geocoder.getFromLocation(latitude,longitude,2);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                final String city = addresses.get(1).getLocality();
+
+                Addres addres = new Addres(null,city,null,null,latitude, longitude);
+
                 User user = session.getLoggedUser();
+                user.setRecentlyAddres(addres);
+
+                session.storeDataUser(user);
+
 
                 final String selectCategory = categories.get(position);
 
-                recycleDao.getRecycleList(selectCategory,user.getAddres(), new GetRecylceCallback() {
+                recycleDao.getRecycleList(selectCategory,user.getRecentlyAddres(), new GetRecylceCallback() {
                     @Override
                     public void done(ArrayList<RecycleStore> recycleList) {
                         if(recycleList.size() >0) {
@@ -72,7 +108,7 @@ public class SelectCategoryActivity extends ActionBarActivity {
                             intent.putExtra("selectCategory",selectCategory);
                             startActivity(intent);
                         }else{
-                            showMessageDialog(selectCategory);
+                            showMessageDialog(selectCategory,city);
                         }
 
 
@@ -86,9 +122,9 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
     }
 
-    private void showMessageDialog(String categoria) {
+    private void showMessageDialog(String categoria, String city) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Nao ha nenhum ponto de "+categoria+" na sua cidade.");
+        alertDialog.setMessage("Nao ha nenhum ponto de "+categoria+" em "+city);
         alertDialog.setPositiveButton("OK", null);
         alertDialog.show();
 

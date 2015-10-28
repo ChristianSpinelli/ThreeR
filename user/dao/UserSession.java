@@ -26,15 +26,25 @@ public class UserSession {
         editor.putString("name",user.getName());
         editor.putString("password",user.getPassword());
         editor.putString("email", user.getEmail());
+
         editor.putString("street",user.getAddres().getStreet());
         editor.putString("number",user.getAddres().getNumber());
         editor.putString("burgh",user.getAddres().getBurgh());
         editor.putString("city",user.getAddres().getCity());
-        editor.putString("state",user.getAddres().getState());
-        editor.putString("country",user.getAddres().getCountry());
+        editor.putString("state", user.getAddres().getState());
+        editor.putString("country", user.getAddres().getCountry());
         editor.putFloat("latitude", (float) user.getAddres().getLatitude());
         editor.putFloat("longitude", (float) user.getAddres().getLongitude());
-        editor.commit();
+
+        if(user.getRecentlyAddres() !=null) {
+            editor.putString("recentlyBurgh", user.getRecentlyAddres().getBurgh());
+            editor.putString("recentlyCity", user.getRecentlyAddres().getCity());
+            editor.putString("recentlyState", user.getRecentlyAddres().getState());
+            editor.putString("recentlyCountry", user.getRecentlyAddres().getCountry());
+            editor.putFloat("recentlyLatitude", (float) user.getRecentlyAddres().getLatitude());
+            editor.putFloat("recentlyLongitude", (float) user.getRecentlyAddres().getLongitude());
+        }
+            editor.commit();
     }
 
 
@@ -42,18 +52,32 @@ public class UserSession {
         String name = userLocalDataBase.getString("name", "");
         String password = userLocalDataBase.getString("password","");
         String email = userLocalDataBase.getString("email","");
+
         String street = userLocalDataBase.getString("street","");
         String number = userLocalDataBase.getString("number","");
         String burgh = userLocalDataBase.getString("burgh","");
         String city = userLocalDataBase.getString("city","");
         String state = userLocalDataBase.getString("state","");
-        String country = userLocalDataBase.getString("country","");
+        String country = userLocalDataBase.getString("country", "");
         double latitude = userLocalDataBase.getFloat("latitude", 0.f);
         double longitude = userLocalDataBase.getFloat("longitude", 0.f);
 
         Addres addres = new Addres(street,number,burgh,city,state,country,latitude,longitude);
 
-        User user = new User(name, password, email,addres);
+
+        String recentlyBurgh = userLocalDataBase.getString("recentlyBurgh", "");
+        String recentlyCity = userLocalDataBase.getString("recentlyCity", "");
+        String recentlyState = userLocalDataBase.getString("recentlyState", "");
+        String recentlyCountry = userLocalDataBase.getString("recentlyCountry", "");
+        double recentlyLatitude = userLocalDataBase.getFloat("recentlyLatitude", 0.f);
+        double recentlyLongitude = userLocalDataBase.getFloat("recentlyLongitude", 0.f);
+
+        Addres recentlyAddres = new Addres(recentlyBurgh, recentlyCity, recentlyState,
+                    recentlyCountry, recentlyLatitude, recentlyLongitude);
+
+
+        User user = new User(name, password, email,addres,recentlyAddres);
+
         return user;
 
     }

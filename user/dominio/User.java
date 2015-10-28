@@ -8,7 +8,8 @@ import krys.threer.system.dominio.Addres;
 public class User {
 
     private String name, password, email;
-    private Addres addres;
+    private Addres addres, recentlyAddres;
+
 
     public User(String name, String password, String email){
         this.name = name;
@@ -30,6 +31,22 @@ public class User {
 
     public  User(){
 
+    }
+
+    public User(String name, String password, String email,Addres addres,Addres recentlyAddres){
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.addres = addres;
+        this.recentlyAddres = recentlyAddres;
+    }
+
+    public Addres getRecentlyAddres() {
+        return recentlyAddres;
+    }
+
+    public void setRecentlyAddres(Addres recentlyAddres) {
+        this.recentlyAddres = recentlyAddres;
     }
 
     public String getName() {
