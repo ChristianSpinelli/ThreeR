@@ -144,7 +144,7 @@ public class MainActivity extends ActionBarActivity {
         CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(loc, 16);
         map.animateCamera(camera);
 
-        showMessageDialog(user);
+
 
 
     }
