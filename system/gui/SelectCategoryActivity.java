@@ -64,53 +64,29 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
                 UserSession session = new UserSession(view.getContext());
 
+                final User user = session.getLoggedUser();
 
-
-                // cria o gerenciado de localizacoes para ver as localizacoes do sistema
-                LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-                // usa o gerenciador para pegar a ultima localizacao do aparelho
-                Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-
-                double latitude = location.getLatitude();
-                double longitude = location.getLongitude();
-
-                Geocoder geocoder = new Geocoder(view.getContext());
-                List<Address> addresses = new ArrayList<Address>();
-
-                try {
-                    addresses = geocoder.getFromLocation(latitude,longitude,2);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                final String city = addresses.get(1).getLocality();
-
-                Addres addres = new Addres(null,city,null,null,latitude, longitude);
-
-                User user = session.getLoggedUser();
-                user.setRecentlyAddres(addres);
+                setUserRecentlyLocation(user);
 
                 session.storeDataUser(user);
 
 
                 final String selectCategory = categories.get(position);
 
-                recycleDao.getRecycleList(selectCategory,user.getRecentlyAddres(), new GetRecylceCallback() {
+                recycleDao.getRecycleList(selectCategory, user.getRecentlyAddres(), new GetRecylceCallback() {
                     @Override
                     public void done(ArrayList<RecycleStore> recycleList) {
-                        if(recycleList.size() >0) {
+                        if (recycleList.size() > 0) {
                             RecycleStoreLocalDataBase recycleDataBase = new RecycleStoreLocalDataBase(SelectCategoryActivity.this);
                             recycleDataBase.setRecycleStoreList(recycleList);
 
                             finish();
                             Intent intent = new Intent(SelectCategoryActivity.this, MainActivity.class);
-                            intent.putExtra("selectCategory",selectCategory);
+                            intent.putExtra("selectCategory", selectCategory);
                             startActivity(intent);
-                        }else{
-                            showMessageDialog(selectCategory,city);
+                        } else {
+                            showMessageDialog(selectCategory, user.getRecentlyAddres().getCity());
                         }
-
 
 
                     }
@@ -119,6 +95,34 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
             }
         });
+
+    }
+
+    private void setUserRecentlyLocation(User user) {
+        // cria o gerenciado de localizacoes para ver as localizacoes do sistema
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        // usa o gerenciador para pegar a ultima localizacao do aparelho
+        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+
+        Geocoder geocoder = new Geocoder(this);
+        List<Address> addresses = new ArrayList<Address>();
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 2);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String city = addresses.get(1).getLocality();
+
+        Addres addres = new Addres(null, city, null, null, latitude, longitude);
+
+
+        user.setRecentlyAddres(addres);
 
     }
 
