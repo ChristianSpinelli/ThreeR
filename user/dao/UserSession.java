@@ -27,14 +27,16 @@ public class UserSession {
         editor.putString("password",user.getPassword());
         editor.putString("email", user.getEmail());
 
-        editor.putString("street",user.getAddres().getStreet());
-        editor.putString("number",user.getAddres().getNumber());
-        editor.putString("burgh",user.getAddres().getBurgh());
-        editor.putString("city",user.getAddres().getCity());
-        editor.putString("state", user.getAddres().getState());
-        editor.putString("country", user.getAddres().getCountry());
-        editor.putFloat("latitude", (float) user.getAddres().getLatitude());
-        editor.putFloat("longitude", (float) user.getAddres().getLongitude());
+        if(user.getAddres() != null) {
+            editor.putString("street", user.getAddres().getStreet());
+            editor.putString("number", user.getAddres().getNumber());
+            editor.putString("burgh", user.getAddres().getBurgh());
+            editor.putString("city", user.getAddres().getCity());
+            editor.putString("state", user.getAddres().getState());
+            editor.putString("country", user.getAddres().getCountry());
+            editor.putFloat("latitude", (float) user.getAddres().getLatitude());
+            editor.putFloat("longitude", (float) user.getAddres().getLongitude());
+        }
 
         if(user.getRecentlyAddres() !=null) {
             editor.putString("recentlyBurgh", user.getRecentlyAddres().getBurgh());

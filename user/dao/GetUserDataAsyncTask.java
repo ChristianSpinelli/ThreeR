@@ -71,9 +71,14 @@ public class GetUserDataAsyncTask extends AsyncTask<Void,Void,User> {
             String result = EntityUtils.toString(entity);
             JSONObject jsonObject = new JSONObject(result);
 
-            if(jsonObject.length() == 0){
+            if (jsonObject.length() == 0) {
                 user = null;
-            }else {
+
+            }if (jsonObject.length() == 1) {
+                String name = jsonObject.getString("name");
+                user = new User(name, this.user.getPassword(), this.user.getEmail());
+
+            } else {
                 String name = jsonObject.getString("name");
                 String street = jsonObject.getString("street");
                 String number = jsonObject.getString("number");
@@ -84,13 +89,11 @@ public class GetUserDataAsyncTask extends AsyncTask<Void,Void,User> {
                 double latitude = jsonObject.getDouble("latitude");
                 double longitude = jsonObject.getDouble("longitude");
 
-                Addres addres = new Addres(street,number,burgh,city,state, country,latitude, longitude);
+                Addres addres = new Addres(street, number, burgh, city, state, country, latitude, longitude);
 
+                user = new User(name, this.user.getPassword(), this.user.getEmail(), addres);
 
-                user = new User(name,this.user.getPassword(),this.user.getEmail(),addres);
             }
-
-
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

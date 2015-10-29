@@ -85,14 +85,14 @@ public class SplashActivity extends ActionBarActivity {
 
     private void startR3() {
         UserSession session = new UserSession(this);
-        if(session.isUserLoggedIn()) {
-            Intent intent = new Intent(this,SelectCategoryActivity.class);
-            startActivity(intent);
+        //if(session.isUserLoggedIn()) {
+           // Intent intent = new Intent(this,SelectCategoryActivity.class);
+           // startActivity(intent);
 
-        }else{
+       // }else{
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
-        }
+        //}
     }
 
 
