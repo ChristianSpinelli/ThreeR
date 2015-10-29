@@ -52,6 +52,7 @@ public class RegisterActivity extends ActionBarActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(v.getContext(),LoginActivity.class);
                 startActivity(intent);
             }
@@ -64,6 +65,7 @@ public class RegisterActivity extends ActionBarActivity {
         userDao.setUser(user, new GetUserCallback() {
             @Override
             public void done(User user) {
+                finish();
                 Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
                 startActivity(intent);
             }

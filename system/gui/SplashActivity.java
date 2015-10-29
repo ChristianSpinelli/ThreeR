@@ -20,6 +20,7 @@ import android.widget.VideoView;
 
 
 import krys.threer.R;
+import krys.threer.user.dao.UserSession;
 import krys.threer.user.gui.LoginActivity;
 
 public class SplashActivity extends ActionBarActivity {
@@ -83,9 +84,15 @@ public class SplashActivity extends ActionBarActivity {
 
 
     private void startR3() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        UserSession session = new UserSession(this);
+        if(session.isUserLoggedIn()) {
+            Intent intent = new Intent(this,SelectCategoryActivity.class);
+            startActivity(intent);
 
+        }else{
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
     }
 
 
