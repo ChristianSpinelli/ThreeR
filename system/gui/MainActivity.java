@@ -141,7 +141,7 @@ public class MainActivity extends ActionBarActivity {
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         // cria a camera na localizacao indicada com um zoom de 16 e faz a camera ir ate la
-        CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(loc, 16);
+        CameraUpdate camera = CameraUpdateFactory.newLatLngZoom(loc, 12);
         map.animateCamera(camera);
 
 
