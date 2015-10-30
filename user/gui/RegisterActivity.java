@@ -63,6 +63,13 @@ public class RegisterActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+        startActivity(intent);
+    }
+
     private void registerUser(final User registerUser) {
         UserDao userDao = new UserDao(this);
 

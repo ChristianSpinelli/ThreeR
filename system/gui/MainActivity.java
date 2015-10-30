@@ -56,7 +56,7 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(v.getContext(),SelectCategoryActivity.class);
+                Intent intent = new Intent(v.getContext(), SelectCategoryActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,6 +74,13 @@ public class MainActivity extends ActionBarActivity {
 
         setUpRecyclesInMap();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(MainActivity.this,SelectCategoryActivity.class);
+        startActivity(intent);
     }
 
     private void setUpRecyclesInMap() {

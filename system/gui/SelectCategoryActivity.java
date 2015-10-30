@@ -84,7 +84,7 @@ public class SelectCategoryActivity extends ActionBarActivity {
                             RecycleStoreLocalDataBase recycleDataBase = new RecycleStoreLocalDataBase(SelectCategoryActivity.this);
                             recycleDataBase.setRecycleStoreList(recycleList);
 
-
+                            finish();
                             Intent intent = new Intent(SelectCategoryActivity.this, MainActivity.class);
                             intent.putExtra("selectCategory", selectCategory);
                             startActivity(intent);

@@ -48,6 +48,7 @@ public class LoginActivity extends ActionBarActivity {
         txtRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(v.getContext(),RegisterActivity.class);
                 startActivity(intent);
             }
@@ -84,7 +85,6 @@ public class LoginActivity extends ActionBarActivity {
                     showMessageDialog();
                 } else {
                     logUser(user);
-                    showMessageDialog();
                 }
             }
         });

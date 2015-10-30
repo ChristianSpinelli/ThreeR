@@ -18,7 +18,7 @@ import krys.threer.user.negocio.GetUserCallback;
 
 public class RegisterAddresActivity extends ActionBarActivity {
 
-    private Button btnBack, btnJump, btnConfirmAddres;
+    private Button btnJump, btnConfirmAddres;
     private EditText edtStreet, edtNumber, edtBurgh, edtCity, edtState, edtCountry;
 
     @Override
@@ -26,7 +26,6 @@ public class RegisterAddresActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_addres);
 
-        btnBack = (Button) findViewById(R.id.btnBack);
         btnJump = (Button) findViewById(R.id.btnJump);
         btnConfirmAddres = (Button) findViewById(R.id.btnConfirmAddres);
 
@@ -36,15 +35,6 @@ public class RegisterAddresActivity extends ActionBarActivity {
         edtCity = (EditText) findViewById(R.id.edtCity);
         edtState = (EditText) findViewById(R.id.edtState);
         edtCountry = (EditText) findViewById(R.id.edtCountry);
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent intent = new Intent(v.getContext(),RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
 
         btnJump.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,13 +70,18 @@ public class RegisterAddresActivity extends ActionBarActivity {
                 registerUser(user);
 
 
-
-
             }
         });
 
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+        Intent intent = new Intent(RegisterAddresActivity.this, RegisterActivity.class);
+        startActivity(intent);
     }
 
     private void registerUser(User user) {
