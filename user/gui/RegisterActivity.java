@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import krys.threer.R;
 import krys.threer.system.dominio.Addres;
 import krys.threer.user.dao.UserDao;
+import krys.threer.user.dao.UserSession;
 import krys.threer.user.dominio.User;
 import krys.threer.user.negocio.GetUserCallback;
 
@@ -33,6 +35,7 @@ public class RegisterActivity extends ActionBarActivity {
         edtRepeatPassword = (EditText) findViewById(R.id.edtRepeatPassword);
         edtName = (EditText) findViewById((R.id.edtName));
 
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,21 +56,24 @@ public class RegisterActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 finish();
-                Intent intent = new Intent(v.getContext(),LoginActivity.class);
+                Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
 
     }
 
-    private void registerUser(User user) {
+    private void registerUser(final User registerUser) {
         UserDao userDao = new UserDao(this);
-        userDao.setUser(user, new GetUserCallback() {
+
+        userDao.setUser(registerUser, new GetUserCallback() {
             @Override
             public void done(User user) {
                 finish();
-                Intent intent = new Intent(RegisterActivity.this,LoginActivity.class);
+                Intent intent = new Intent(RegisterActivity.this,RegisterAddresActivity.class);
+                intent.putExtra("email",registerUser.getEmail());
                 startActivity(intent);
+
             }
         });
 

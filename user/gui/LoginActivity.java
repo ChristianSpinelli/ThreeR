@@ -84,6 +84,7 @@ public class LoginActivity extends ActionBarActivity {
                     showMessageDialog();
                 } else {
                     logUser(user);
+                    showMessageDialog();
                 }
             }
         });
@@ -99,7 +100,7 @@ public class LoginActivity extends ActionBarActivity {
 
     private void showMessageDialog() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Usuario nao encontrado, verifique os campos");
+        alertDialog.setMessage("Usuario nao cadastrado. Verifique os campos");
         alertDialog.setPositiveButton("OK", null);
         alertDialog.show();
     }

@@ -30,4 +30,6 @@ public class UserDao extends ServerRequest {
         new SetUserAdressDataAsyncTask(user,callback).execute();
 
     }
+
+
 }
