@@ -11,6 +11,9 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.AdapterView;
@@ -30,6 +33,7 @@ import krys.threer.system.dominio.Addres;
 import krys.threer.system.negocio.ArrayAdapterCategories;
 import krys.threer.user.dao.UserSession;
 import krys.threer.user.dominio.User;
+import krys.threer.user.gui.LoginActivity;
 
 
 public class SelectCategoryActivity extends ActionBarActivity {
@@ -96,6 +100,34 @@ public class SelectCategoryActivity extends ActionBarActivity {
             }
         });
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_threer, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.id_logout){
+            UserSession session = new UserSession(this);
+            RecycleStoreLocalDataBase recycleStore = new RecycleStoreLocalDataBase(this);
+
+            session.setUserLogged(false);
+            session.userClearAll();
+            recycleStore.clearAll();
+
+            finish();
+            Intent intent = new Intent(SelectCategoryActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
+
+        return true;
     }
 
     private void setUserRecentlyLocation(User user) {

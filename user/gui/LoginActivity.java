@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -91,6 +92,7 @@ public class LoginActivity extends ActionBarActivity {
     private void logUser(User user) {
         userSession.storeDataUser(user);
         userSession.setUserLogged(true);
+        finish();
         Intent intent = new Intent(this, SelectCategoryActivity.class);
         startActivity(intent);
     }

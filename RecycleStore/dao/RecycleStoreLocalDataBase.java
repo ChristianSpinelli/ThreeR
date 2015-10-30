@@ -48,5 +48,10 @@ public class RecycleStoreLocalDataBase {
         return recycleList;
     }
 
+    public void clearAll(){
+        SharedPreferences.Editor editor = recycleStoreLocalDataBase.edit();
+        editor.clear();
+    }
+
 
 }
