@@ -1,20 +1,23 @@
 package krys.threer.system.gui;
 
 import android.app.AlertDialog;
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.location.Location;
-import android.location.LocationManager;
 
+
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+
 
 
 
@@ -37,29 +40,22 @@ import krys.threer.RecycleStore.dao.RecycleStoreLocalDataBase;
 import krys.threer.RecycleStore.domino.RecycleStore;
 import krys.threer.user.dao.UserSession;
 import krys.threer.user.dominio.User;
+import krys.threer.user.gui.LoginActivity;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private GoogleMap map;
     private  LatLng loc;
-    private Button btnChangeCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnChangeCategory = (Button) findViewById(R.id.btnCategory);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#238e23")));
 
-        btnChangeCategory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-                Intent intent = new Intent(v.getContext(), SelectCategoryActivity.class);
-                startActivity(intent);
-            }
-        });
 
         if(MapCheckInstance()){
             setUpMap();
@@ -81,6 +77,33 @@ public class MainActivity extends ActionBarActivity {
         finish();
         Intent intent = new Intent(MainActivity.this,SelectCategoryActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_threer,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if(item.getItemId() == R.id.id_logout){
+            UserSession session = new UserSession(this);
+            RecycleStoreLocalDataBase recycleStore = new RecycleStoreLocalDataBase(this);
+
+            session.setUserLogged(false);
+            session.userClearAll();
+            recycleStore.clearAll();
+
+            finish();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
+        return true;
     }
 
     private void setUpRecyclesInMap() {

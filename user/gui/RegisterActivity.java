@@ -1,7 +1,10 @@
 package krys.threer.user.gui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.provider.Telephony;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -27,6 +30,9 @@ public class RegisterActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#238e23")));
 
         btnCancel = (Button) findViewById(R.id.btnCancel);
         btnConfirm = (Button) findViewById(R.id.btnConfirm);
@@ -78,7 +84,7 @@ public class RegisterActivity extends ActionBarActivity {
             public void done(User user) {
                 finish();
                 Intent intent = new Intent(RegisterActivity.this,RegisterAddresActivity.class);
-                intent.putExtra("email",registerUser.getEmail());
+                intent.putExtra("email", registerUser.getEmail());
                 startActivity(intent);
 
             }

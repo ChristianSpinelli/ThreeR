@@ -1,6 +1,9 @@
 package krys.threer.user.gui;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,6 +28,9 @@ public class RegisterAddresActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_addres);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#238e23")));
 
         btnJump = (Button) findViewById(R.id.btnJump);
         btnConfirmAddres = (Button) findViewById(R.id.btnConfirmAddres);
