@@ -57,6 +57,8 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
         setUpResources();
 
+
+
     }
 
     @Override
@@ -175,7 +177,7 @@ public class SelectCategoryActivity extends ActionBarActivity {
     private void setUpResources() {
 
         categories.add("Pilha e Bateria");
-        images.add(R.drawable.pilha);
+        images.add(R.drawable.pilha_e_bateria);
 
         categories.add("Metal");
         images.add(R.drawable.metal);
@@ -187,10 +189,10 @@ public class SelectCategoryActivity extends ActionBarActivity {
         images.add(R.drawable.plastico);
 
         categories.add("Papel e Papelao");
-        images.add(R.drawable.papel);
+        images.add(R.drawable.papel_e_papelao);
 
         categories.add("Roupa");
-        images.add(R.drawable.roupas);
+        images.add(R.drawable.roupa);
 
         categories.add("Livro");
         images.add(R.drawable.livro);
@@ -202,7 +204,7 @@ public class SelectCategoryActivity extends ActionBarActivity {
         images.add(R.drawable.oleo);
 
         categories.add("Cartucho de impressora");
-        images.add(R.drawable.cartucho_impressora);
+        images.add(R.drawable.cartucho_de_impressora);
 
     }
 
