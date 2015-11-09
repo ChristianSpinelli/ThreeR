@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import krys.threer.system.gui.ContactFragment;
 import krys.threer.system.gui.MapFragment;
 import krys.threer.system.gui.StoreListFragment;
 
@@ -12,7 +13,7 @@ import krys.threer.system.gui.StoreListFragment;
  */
 public class TabsAdapter extends FragmentStatePagerAdapter {
 
-    private static int TOTAL_TABS = 2;
+    private static int TOTAL_TABS = 3;
 
     public TabsAdapter(FragmentManager fm) {
         super(fm);
@@ -23,8 +24,11 @@ public class TabsAdapter extends FragmentStatePagerAdapter {
         if(position == 0){
             return new MapFragment();
         }
-        if(position == 1){
+        else if(position == 1){
             return new StoreListFragment();
+        }
+        else if(position == 2){
+            return  new ContactFragment();
         }
 
         return null;

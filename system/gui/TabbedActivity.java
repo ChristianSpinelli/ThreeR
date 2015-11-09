@@ -41,9 +41,11 @@ public class TabbedActivity extends ActionBarActivity implements ActionBar.TabLi
 
         ActionBar.Tab mapTab = actionBar.newTab().setText("Mapa").setTabListener(this);
         ActionBar.Tab storeListTab = actionBar.newTab().setText("Pontos de reciclagem").setTabListener(this);
+        ActionBar.Tab contactTab = actionBar.newTab().setText("Contato").setTabListener(this);
 
         actionBar.addTab(mapTab);
         actionBar.addTab(storeListTab);
+        actionBar.addTab(contactTab);
 
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

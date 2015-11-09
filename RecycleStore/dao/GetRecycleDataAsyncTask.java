@@ -113,10 +113,6 @@ public class GetRecycleDataAsyncTask extends AsyncTask<Void,Void,ArrayList<Recyc
 
                    }
 
-
-
-
-
                 }
 
             }
