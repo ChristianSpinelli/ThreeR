@@ -1,5 +1,8 @@
 package krys.threer.system.gui;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -10,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import krys.threer.R;
+
 
 public class ContactFragment extends Fragment {
 
@@ -29,15 +33,32 @@ public class ContactFragment extends Fragment {
         btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String Subject = edtSubject.getText().toString();
-                String Message = edtMessage.getText().toString();
+                String subject = edtSubject.getText().toString();
+                String message = edtMessage.getText().toString();
+
+                sendMessage(message,subject);
+
+                edtSubject.setText("");
+                edtMessage.setText("");
+
+
+
+
             }
         });
 
 
-
-
         return view;
+    }
+
+    private void sendMessage(String message, String subject) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, subject);
+        intent.putExtra(Intent.EXTRA_TEXT, message);
+        intent.setData(Uri.parse("mailto:contact.appgrade@gmail.com"));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
 
