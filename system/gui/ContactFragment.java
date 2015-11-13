@@ -15,7 +15,7 @@ import android.widget.EditText;
 import krys.threer.R;
 
 
-public class ContactFragment extends Fragment {
+public class ContactFragment extends Fragment implements View.OnClickListener {
 
     private EditText edtSubject,edtMessage;
     private Button btnSend;
@@ -24,15 +24,24 @@ public class ContactFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_contact,container,false);
+        View view = inflater.inflate(R.layout.fragment_contact, container, false);
 
         edtSubject = (EditText) view.findViewById(R.id.edtSubject);
         edtMessage = (EditText) view.findViewById(R.id.edtMessage);
         btnSend = (Button) view.findViewById(R.id.btnSend);
 
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnSend.setOnClickListener(this);
+
+
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch (id){
+            case R.id.btnSend:
                 String subject = edtSubject.getText().toString();
                 String message = edtMessage.getText().toString();
 
@@ -40,15 +49,10 @@ public class ContactFragment extends Fragment {
 
                 edtSubject.setText("");
                 edtMessage.setText("");
+                break;
 
+        }
 
-
-
-            }
-        });
-
-
-        return view;
     }
 
     private void sendMessage(String message, String subject) {

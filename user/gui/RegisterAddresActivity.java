@@ -19,7 +19,7 @@ import krys.threer.user.dao.UserSession;
 import krys.threer.user.dominio.User;
 import krys.threer.user.negocio.GetUserCallback;
 
-public class RegisterAddresActivity extends ActionBarActivity {
+public class RegisterAddresActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button btnJump, btnConfirmAddres;
     private EditText edtStreet, edtNumber, edtBurgh, edtCity, edtState, edtCountry;
@@ -42,20 +42,25 @@ public class RegisterAddresActivity extends ActionBarActivity {
         edtState = (EditText) findViewById(R.id.edtState);
         edtCountry = (EditText) findViewById(R.id.edtCountry);
 
-        btnJump.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnJump.setOnClickListener(this);
+
+        btnConfirmAddres.setOnClickListener(this);
+
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        switch (id){
+            case R.id.btnJump:
                 finish();
                 Intent intent = new Intent(v.getContext(),LoginActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        btnConfirmAddres.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = getIntent();
+                break;
+            case R.id.btnConfirmAddres:
+                intent = getIntent();
 
                 String email = (String) intent.getExtras().get("email");
 
@@ -74,11 +79,10 @@ public class RegisterAddresActivity extends ActionBarActivity {
                 user.setAddres(addres);
 
                 registerUser(user);
+                break;
 
 
-            }
-        });
-
+        }
 
 
     }

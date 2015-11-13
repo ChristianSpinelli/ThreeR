@@ -20,7 +20,8 @@ import krys.threer.user.dominio.User;
 import krys.threer.user.negocio.GetUserCallback;
 
 
-public class LoginActivity extends ActionBarActivity {
+public class LoginActivity extends ActionBarActivity implements View.OnClickListener {
+
 
     private Button btnLogin;
     private TextView txtRegister;
@@ -41,32 +42,32 @@ public class LoginActivity extends ActionBarActivity {
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtPassword = (EditText) findViewById(R.id.edtPassword);
 
-
         userSession = new UserSession(this);
 
+        txtRegister.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
 
-        txtRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.txtRegister:
                 finish();
                 Intent intent = new Intent(v.getContext(),RegisterActivity.class);
                 startActivity(intent);
-            }
-        });
-
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.btnLogin:
                 String email = edtEmail.getText().toString();
                 String password = edtPassword.getText().toString();
 
                 User user = new User(null, password, email);
 
                 authenticate(user);
+                break;
 
-            }
-        });
-
+        }
 
     }
 

@@ -21,7 +21,7 @@ import krys.threer.user.dominio.User;
 import krys.threer.user.negocio.GetUserCallback;
 
 
-public class RegisterActivity extends ActionBarActivity {
+public class RegisterActivity extends ActionBarActivity implements View.OnClickListener {
 
     private Button btnConfirm, btnCancel;
     private EditText edtName, edtRegisterPassword, edtRegisterEmail, edtRepeatPassword;
@@ -41,10 +41,15 @@ public class RegisterActivity extends ActionBarActivity {
         edtRepeatPassword = (EditText) findViewById(R.id.edtRepeatPassword);
         edtName = (EditText) findViewById((R.id.edtName));
 
+        btnConfirm.setOnClickListener(this);
+        btnCancel.setOnClickListener(this);
+    }
 
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        switch (id){
+            case R.id.btnConfirm:
                 String name = edtName.getText().toString();
                 String password = edtRegisterPassword.getText().toString();
                 String repeatPassword = edtRepeatPassword.getText().toString();
@@ -53,20 +58,13 @@ public class RegisterActivity extends ActionBarActivity {
                 User user = new User(name,password,email);
 
                 registerUser(user);
-
-            }
-        });
-
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                break;
+            case R.id.btnCancel:
                 finish();
                 Intent intent = new Intent(v.getContext(), LoginActivity.class);
                 startActivity(intent);
-            }
-        });
-
+                break;
+        }
     }
 
     @Override
