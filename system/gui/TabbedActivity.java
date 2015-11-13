@@ -39,9 +39,9 @@ public class TabbedActivity extends ActionBarActivity implements ActionBar.TabLi
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#238e23")));
 
-        ActionBar.Tab mapTab = actionBar.newTab().setText("Mapa").setTabListener(this);
-        ActionBar.Tab storeListTab = actionBar.newTab().setText("Pontos de reciclagem").setTabListener(this);
-        ActionBar.Tab contactTab = actionBar.newTab().setText("Contato").setTabListener(this);
+        ActionBar.Tab mapTab = actionBar.newTab().setText(getResources().getString(R.string.map)).setTabListener(this);
+        ActionBar.Tab storeListTab = actionBar.newTab().setText(getResources().getString(R.string.recycle_store)).setTabListener(this);
+        ActionBar.Tab contactTab = actionBar.newTab().setText(getResources().getString(R.string.contact)).setTabListener(this);
 
         actionBar.addTab(mapTab);
         actionBar.addTab(storeListTab);

@@ -6,6 +6,9 @@ import android.content.Context;
 /**
  * Created by Krys on 22/10/2015.
  */
+
+
+import krys.threer.R;
 public class ServerRequest {
 
     public static ProgressDialog progressDialog;
@@ -16,8 +19,8 @@ public class ServerRequest {
     public ServerRequest(Context context){
         progressDialog = new ProgressDialog(context);
         progressDialog.setCancelable(false);
-        progressDialog.setTitle("Processando");
-        progressDialog.setMessage("Por favor, aguarde...");
+        progressDialog.setTitle(context.getResources().getString(R.string.processing));
+        progressDialog.setMessage(context.getResources().getString(R.string.please_wait));
     }
 
 

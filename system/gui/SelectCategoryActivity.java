@@ -14,6 +14,7 @@ import android.location.LocationManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ import krys.threer.system.negocio.ArrayAdapterCategories;
 import krys.threer.user.dao.UserSession;
 import krys.threer.user.dominio.User;
 import krys.threer.user.gui.LoginActivity;
+import krys.threer.user.gui.PerfilActivity;
 
 
 public class SelectCategoryActivity extends ActionBarActivity {
@@ -56,9 +58,6 @@ public class SelectCategoryActivity extends ActionBarActivity {
         lstCategories = (ListView) findViewById(R.id.lstCategories);
 
         setUpResources();
-
-
-
     }
 
     @Override
@@ -134,6 +133,12 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
         }
 
+        if(item.getItemId() == R.id.id_perfil){
+            finish();
+            Intent intent = new Intent(SelectCategoryActivity.this, PerfilActivity.class);
+            startActivity(intent);
+        }
+
 
         return true;
     }
@@ -168,42 +173,42 @@ public class SelectCategoryActivity extends ActionBarActivity {
 
     private void showMessageDialog(String categoria, String city) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Nao ha nenhum ponto de "+categoria+" em "+city);
-        alertDialog.setPositiveButton("OK", null);
+        alertDialog.setMessage(getResources().getString(R.string.recycle_not_found)+" de "+categoria+" em "+city);
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), null);
         alertDialog.show();
 
     }
 
     private void setUpResources() {
 
-        categories.add("Pilha e Bateria");
+        categories.add(getResources().getString(R.string.category_batery));
         images.add(R.drawable.pilha_e_bateria);
 
-        categories.add("Metal");
+        categories.add(getResources().getString(R.string.category_metal));
         images.add(R.drawable.metal);
 
-        categories.add("Vidro");
+        categories.add(getResources().getString(R.string.category_glass));
         images.add(R.drawable.vidro);
 
-        categories.add("Plastico");
+        categories.add(getResources().getString(R.string.category_plastic));
         images.add(R.drawable.plastico);
 
-        categories.add("Papel e Papelao");
+        categories.add(getResources().getString(R.string.category_paper));
         images.add(R.drawable.papel_e_papelao);
 
-        categories.add("Roupa");
+        categories.add(getResources().getString(R.string.category_cloth));
         images.add(R.drawable.roupa);
 
-        categories.add("Livro");
+        categories.add(getResources().getString(R.string.category_book));
         images.add(R.drawable.livro);
 
-        categories.add("Madeira");
+        categories.add(getResources().getString(R.string.category_wood));
         images.add(R.drawable.madeira);
 
-        categories.add("Oleo");
+        categories.add(getResources().getString(R.string.category_oil));
         images.add(R.drawable.oleo);
 
-        categories.add("Cartucho de impressora");
+        categories.add(getResources().getString(R.string.category_print));
         images.add(R.drawable.cartucho_de_impressora);
 
     }

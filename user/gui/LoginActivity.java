@@ -82,7 +82,7 @@ public class LoginActivity extends ActionBarActivity {
             @Override
             public void done(User user) {
                 if (user == null) {
-                    showMessageDialog();
+                    showMessageDialog(getResources().getString(R.string.user_not_found));
                 } else {
                     logUser(user);
                 }
@@ -98,10 +98,10 @@ public class LoginActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    private void showMessageDialog() {
+    private void showMessageDialog(String message) {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setMessage("Usuario nao cadastrado. Verifique os campos");
-        alertDialog.setPositiveButton("OK", null);
+        alertDialog.setMessage(message);
+        alertDialog.setPositiveButton(getResources().getString(R.string.ok), null);
         alertDialog.show();
     }
 

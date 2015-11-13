@@ -92,9 +92,5 @@ public class RegisterActivity extends ActionBarActivity {
 
     }
 
-    private void showMessageDialog() {
-        Toast toast = Toast.makeText(this,"Usuario cadastrado com sucesso",Toast.LENGTH_LONG);
-        toast.show();
-    }
 
 }

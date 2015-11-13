@@ -67,7 +67,10 @@ public class StoreListFragment extends Fragment {
 
         Intent intent = getActivity().getIntent();
         String selectCategory = intent.getExtras().getString("selectCategory");
-        selectCategory = selectCategory.replaceAll(" ","_").toLowerCase();
+        selectCategory = selectCategory.replaceAll(" ", "_")
+                .replaceAll(getResources().getString(R.string.excepcional_a_1), "a")
+                .replaceAll(getResources().getString(R.string.excepcional_a_2), "a")
+                .replaceAll(getResources().getString(R.string.excepcional_o_1), "O").toLowerCase();
         Uri uri = Uri.parse("android.resource://krys.threer/mipmap/" + selectCategory);
 
 
